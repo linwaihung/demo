@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environment Variables</title>
+</head>
+<body>
+  <h1>Environment Variables</h1>
+  <ul id="env-variables"></ul>
+
+  <script>
+    fetch('/env')
+      .then(response => response.json())
+      .then(data => {
+        const envList = document.getElementById('env-variables');
+        for (const [key, value] of Object.entries(data)) {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${key}: ${value}`;
+          envList.appendChild(listItem);
+        }
+      });
+  </script>
+</body>
+</html>

@@ -1,17 +1,17 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const port = 3000;
 
-const appName = process.env.APP_NAME
+app.use(express.static('public'));
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-app.use('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-    console.log(`Request served by ${appName}`);
+app.get('/env', (req, res) => {
+  res.json({
+    NODE_ENV: process.env.NODE_ENV,
+    APP_NAME: process.env.APP_NAME,
+    APP_VERSION: process.env.APP_VERSION
+  });
 });
 
 app.listen(port, () => {
-    console.log(`${appName} is listening on port ${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
